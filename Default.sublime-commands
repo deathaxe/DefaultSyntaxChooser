@@ -1,0 +1,9 @@
+[
+	{
+		"caption": "Set Syntax Dialect: SQL",
+		"command": "set_default_syntax_dialect",
+		"args": {
+			"syntax_file": "Packages/SQL/SQL.sublime-syntax"
+		}
+	}
+]
