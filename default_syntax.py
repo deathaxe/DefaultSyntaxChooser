@@ -24,6 +24,9 @@ class DialectFileInputHandler(sublime_plugin.ListInputHandler):
         default_scopes = self.default_syntax.scope.split(".")
         default_scope = f"{default_scopes[0]}.{default_scopes[1]}"
 
+        # names such as "SQL (Rails)" indicate an inheriting syntax rather than a dialect
+        inherit_syntax_pattern = re.compile(rf"^{self.default_syntax.name}\s+\([^)]+\)$")
+
         match = re.search(
             r"^extends:\s+(?:-\s+)?(\S+)",
             sublime.load_resource(self.default_syntax.path),
@@ -39,6 +42,8 @@ class DialectFileInputHandler(sublime_plugin.ListInputHandler):
             if syntax == self.default_syntax:
                 continue
             if not syntax.scope.startswith(default_scope):
+                continue
+            if inherit_syntax_pattern.match(syntax.name):
                 continue
             items.append(
                 sublime.ListInputItem(
