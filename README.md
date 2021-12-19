@@ -31,7 +31,7 @@ A command for the target syntax is to be added to _Default.sublime-commands_
 [
     {
         "caption": "Set Syntax Dialect: SQL",
-        "command": "assign_default_syntax_dialect",
+        "command": "set_default_syntax_dialect",
         "args": {
             "syntax_file": "Packages/SQL/SQL.sublime-syntax"
         }
