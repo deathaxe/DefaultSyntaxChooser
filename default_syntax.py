@@ -1,11 +1,14 @@
+from __future__ import annotations
 import re
 
 import sublime
 import sublime_plugin
 
 from pathlib import Path
-from textwrap import dedent
-from typing import Dict, List, Union
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Union
 
 
 class DialectFileInputHandler(sublime_plugin.ListInputHandler):
@@ -19,7 +22,7 @@ class DialectFileInputHandler(sublime_plugin.ListInputHandler):
     def placeholder(self) -> str:
         return "Choose the dialect to use as default syntax."
 
-    def list_items(self) -> List[sublime.ListInputItem]:
+    def list_items(self) -> list[sublime.ListInputItem]:
         # Use first two scope levels to find dialects
         default_scopes = self.default_syntax.scope.split(".")
         default_scope = f"{default_scopes[0]}.{default_scopes[1]}"
@@ -123,9 +126,9 @@ class SetDefaultSyntaxDialect(sublime_plugin.WindowCommand):
     ```
     """
 
-    def input(self, args: Dict[str, str]) -> Union[DialectFileInputHandler, None]:
+    def input(self, args: dict[str, str]) -> Union[DialectFileInputHandler, None]:
         if not args.get("dialect_file"):
-            default_syntax = sublime.syntax_from_path(args.get("syntax_file"))
+            default_syntax = sublime.syntax_from_path(args.get("syntax_file", ""))
             if default_syntax:
                 return DialectFileInputHandler(default_syntax)
         return None
