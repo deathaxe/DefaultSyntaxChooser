@@ -7,9 +7,6 @@ import sublime_plugin
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing import Union
-
 
 class DialectFileInputHandler(sublime_plugin.ListInputHandler):
     def __init__(self, default_syntax: sublime.Syntax):
@@ -126,7 +123,7 @@ class SetDefaultSyntaxDialect(sublime_plugin.WindowCommand):
     ```
     """
 
-    def input(self, args: dict[str, str]) -> Union[DialectFileInputHandler, None]:
+    def input(self, args: dict[str, str]) -> DialectFileInputHandler | None:
         if not args.get("dialect_file"):
             default_syntax = sublime.syntax_from_path(args.get("syntax_file", ""))
             if default_syntax:
