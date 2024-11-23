@@ -43,6 +43,8 @@ class DialectFileInputHandler(sublime_plugin.ListInputHandler):
                 continue
             if not syntax.scope.startswith(default_scope):
                 continue
+            if ".embedded" in syntax.scope:
+                continue
             if inherit_syntax_pattern.match(syntax.name):
                 continue
             items.append(
