@@ -163,8 +163,10 @@ class SetDefaultSyntaxDialect(sublime_plugin.WindowCommand):
             return
 
         # write modified default syntax to extracted Packages path
+        syntax_path = Path(sublime.packages_path()).parent / default_syntax.path
+        syntax_path.parent.mkdir(parents=True, exist_ok=True)
         with open(
-            file=Path(sublime.packages_path()).parent / default_syntax.path,
+            file=syntax_path,
             mode="w",
             encoding="utf-8",
             newline="\n",
